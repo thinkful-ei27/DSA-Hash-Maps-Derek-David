@@ -101,12 +101,13 @@ HashMap.SIZE_RATIO = 3;
 // Any permutation a palindrome
 const permPalindrome = string => {
   string = string.toLowerCase();
+  // Can also use `new Map()` to make things a lot easier
   const letters = new HashMap();
   for (let i = 0; i < string.length; i++) {
     try {
       let count = letters.get(string[i]);
-      letters.set(string[i], ++count)
-    } catch(err) {
+      letters.set(string[i], ++count);
+    } catch (err) {
       letters.set(string[i], 1);
     }
   }
@@ -114,7 +115,7 @@ const permPalindrome = string => {
   const isEven = string.length % 2 === 0;
   if (isEven) {
     for (let j = 0; j < string.length; j++) {
-      const num = letters.get(string[j])
+      const num = letters.get(string[j]);
       if (num % 2 !== 0) {
         return false;
       }
@@ -122,21 +123,47 @@ const permPalindrome = string => {
     return true;
   } else {
     let count = 0;
-    for (let k= 0; k < string.length; k++) {
-      const num = letters.get(string[k])
+    for (let k = 0; k < string.length; k++) {
+      const num = letters.get(string[k]);
       if (num % 2 !== 0) {
-        count++
+        count++;
       }
     }
     if (count > 1) {
-      return false
+      return false;
     } else {
       return true;
     }
   }
 };
 
-console.log(permPalindrome('acecarr'));
-console.log(permPalindrome('abted'));
-console.log(permPalindrome('aeea'));
-console.log(permPalindrome('north'));
+// console.log(permPalindrome('acecarr'));
+// console.log(permPalindrome('abted'));
+// console.log(permPalindrome('aeea'));
+// console.log(permPalindrome('north'));
+
+// Anagram grouping
+const groupAnagrams = words => {
+  const groups = new Map();
+  const groupArr = [];
+
+  words.forEach(word => {
+    const sortedWord = word.split('').sort().join('');
+    let currVal = groups.get(sortedWord);
+    if (currVal === undefined) {
+      groups.set(sortedWord, [word]);
+    } else {
+      const newArr = [...currVal, word];
+      groups.set(sortedWord, newArr);
+    }
+  });
+
+  for (let value of groups.values()) {
+    groupArr.push(value);
+  }
+
+  return groupArr;
+};
+
+console.log(groupAnagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
+// Expect output to be: [['east', 'teas', 'eats'], ['cars', 'arcs'], ['acre', 'race']]
