@@ -165,5 +165,5 @@ const groupAnagrams = words => {
   return groupArr;
 };
 
-console.log(groupAnagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
+// console.log(groupAnagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
 // Expect output to be: [['east', 'teas', 'eats'], ['cars', 'arcs'], ['acre', 'race']]
