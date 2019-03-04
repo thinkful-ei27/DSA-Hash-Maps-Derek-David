@@ -1,3 +1,4 @@
+import LinkedList from './linkedList'
 class HashMap {
   constructor(initialCapacity = 8) {
     this.length = 0;
@@ -22,13 +23,15 @@ class HashMap {
     }
     const getNode = this._findNode(key)
     if (getNode === null) {
-      
+      LL = new LinkedList()
       length++
+    } else {
+      getNode.insertLast({
+        key,
+        value,
+        deleted: false
+      })
     }
-
-
-
-
   }
 
   remove(key) {
