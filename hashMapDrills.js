@@ -100,12 +100,43 @@ HashMap.SIZE_RATIO = 3;
 
 // Any permutation a palindrome
 const permPalindrome = string => {
+  string = string.toLowerCase();
   const letters = new HashMap();
   for (let i = 0; i < string.length; i++) {
-    letters.set(string[i], 1);
+    try {
+      let count = letters.get(string[i]);
+      letters.set(string[i], ++count)
+    } catch(err) {
+      letters.set(string[i], 1);
+    }
   }
-  return true;
+  // console.log(letters);
+  const isEven = string.length % 2 === 0;
+  if (isEven) {
+    for (let j = 0; j < string.length; j++) {
+      const num = letters.get(string[j])
+      if (num % 2 !== 0) {
+        return false;
+      }
+    }
+    return true;
+  } else {
+    let count = 0;
+    for (let k= 0; k < string.length; k++) {
+      const num = letters.get(string[k])
+      if (num % 2 !== 0) {
+        count++
+      }
+    }
+    if (count > 1) {
+      return false
+    } else {
+      return true;
+    }
+  }
 };
 
 console.log(permPalindrome('acecarr'));
+console.log(permPalindrome('abted'));
+console.log(permPalindrome('aeea'));
 console.log(permPalindrome('north'));
