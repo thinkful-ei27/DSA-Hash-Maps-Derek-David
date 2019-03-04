@@ -1,4 +1,7 @@
-import LinkedList from './linkedList'
+'use strict';
+
+const LinkedList = require('./linkedList');
+
 class HashMap {
   constructor(initialCapacity = 8) {
     this.length = 0;
@@ -8,11 +11,11 @@ class HashMap {
   }
 
   get(key) {
-    const node = this._findNode(key)
+    const node = this._findNode(key);
     if (node === null) {
       throw new Error('Key error');
     } else {
-      return node.value
+      return node.value;
     }
   }
 
@@ -21,26 +24,27 @@ class HashMap {
     if (loadRatio > HashMap.MAX_LOAD_RATIO) {
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
-    const getNode = this._findNode(key)
+    const index = this._findSlot(key);
+    const getNode = this._findNode(key);
     if (getNode === null) {
-      LL = new LinkedList()
-      length++
+      const LL = new LinkedList();
+      this.length++;
     } else {
       getNode.insertLast({
         key,
         value,
         deleted: false
-      })
+      });
     }
   }
 
   remove(key) {
 
   }
-  
+
   _findNode(key) {
     const index = this._findSlot(key);
-    return this._slots[index].find(key)
+    return this._slots[index].find(key);
   }
 
   _findSlot(key) {
